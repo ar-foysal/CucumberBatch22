@@ -22,7 +22,7 @@ Feature: Login feature
   Scenario: User should not be able to login without password
     When User enter "standard_user" on the username filed
     And User click on the login button
-    Then User should see "Epic sadface: Password is required" error message
+    Then User should see "Epic sadfac: Password is required" error message
 
   Scenario: User should not be able to login without username and password
     When User click on the login button
