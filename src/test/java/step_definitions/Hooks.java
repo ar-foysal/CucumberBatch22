@@ -1,32 +1,20 @@
 package step_definitions;
 
-import drivers.PageDriver;
 import io.cucumber.java.*;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
+import static drivers.DriverSetup.openABrowser;
+import static drivers.DriverSetup.quiteBrowser;
 
-import static drivers.BaseDriver.close;
-import static drivers.BaseDriver.startBrowser;
 
 public class Hooks {
-
+    public static String browserName = System.getProperty("browser", "Chrome");
     @Before
     public void start(){
-        startBrowser();
+        openABrowser(browserName);
     }
 
     @After
     public void closeDriver(Scenario scenario){
-        takeScreenShot(scenario);
-        close();
+        quiteBrowser(scenario);
     }
 
-    public static void takeScreenShot(Scenario scenario){
-        if (scenario.isFailed()){
-            String name = scenario.getName().replaceAll(" ", "_");
-            byte[] data = ((TakesScreenshot)PageDriver.getCurrentDriver()).getScreenshotAs(OutputType.BYTES);
-            scenario.attach(data, "image/png", name);
-        }
-
-    }
 }

@@ -2,12 +2,13 @@ Feature: Login feature
   Background:
     Given User should be on the login screen
 
+  @sanity
   Scenario: User should be able to log in with valid credentials
     When User enter valid username and password
     And User click on the login button
     Then User should be navigate to the inventory page
     But User shouldn't be on the login page
-
+  @login @smoke
   Scenario: User should not be able to login with an invalid password
     When User enter "standard_user" on the username filed
     And User enter "secret_s" on the password filed

@@ -1,15 +1,16 @@
 package step_definitions;
 
-import drivers.PageDriver;
 import io.cucumber.java.en.*;
 import org.testng.Assert;
 import pages.LoginPage;
+
+import static drivers.DriverSetup.getDriver;
 
 public class LoginStep {
     LoginPage loginPage = new LoginPage();
     @Given("User should be on the login screen")
     public void userShouldBeOnTheLoginScreen() {
-        PageDriver.getCurrentDriver().get(loginPage.loginPageURL);
+        loginPage.loadAWebPage(loginPage.loginPageURL);
     }
 
     @When("User enter valid username and password")
@@ -26,12 +27,12 @@ public class LoginStep {
 
     @Then("User should be navigate to the inventory page")
     public void userShouldBeNavigateToTheInventoryPage() {
-        Assert.assertEquals(PageDriver.getCurrentDriver().getCurrentUrl(), "https://www.saucedemo.com/inventory.html");
+        Assert.assertEquals(getDriver().getCurrentUrl(), "https://www.saucedemo.com/inventory.html");
     }
 
     @But("User shouldn't be on the login page")
     public void userShouldnTBeOnTheLoginPage() {
-        Assert.assertFalse(PageDriver.getCurrentDriver().getCurrentUrl() == loginPage.loginPageURL);
+        Assert.assertFalse(getDriver().getCurrentUrl() == loginPage.loginPageURL);
     }
 
     @When("User enter {string} on the username filed")
